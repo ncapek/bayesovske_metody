@@ -49,7 +49,7 @@ ggplot(df2, aes(x = y, y = f, group = 1)) +
   xlab("pocet licu") + ylab("pravdepodobnost")
 
 # Ukol
-# Spo????tejte klasick?? bodov?? odhad parametru ?? pro n???? vektor pozorov??n?? Y a vykreslete graf odpov??daj??c?? pravd??podobnostn??
+# Spocítejte klasický bodový odhad parametru ?? pro nás vektor pozorování Y a vykreslete graf odpovídající pravdepodobnostní
 # funkce.
 bodovy_odhad = mean(Y)
 n <- 10
@@ -95,9 +95,9 @@ ggplot(df2, aes(x = y, y = f, colour = theta)) +
   facet_wrap(theta ~ ., ncol = 2, scales = "free_y") + 
   xlab("pocet licu") + ylab("pravdepodobnost")
 
-## Bayesovsk?? pohled
+## Bayesovský pohled
 
-### Apriorn?? rozd??len??
+### Apriorní rozdelení
 
 theta <- seq(0, 1, by = 0.001)
 df <- data.frame(theta = theta)
@@ -110,7 +110,7 @@ ggplot(df2, aes(x = theta, y = h, group = 1)) +
   xlab("theta") + ylab("apriorni hustota") + 
   ylim(0, 1.5)
 
-### Aposteriorn?? rozd??len??
+### Aposteriorní rozdelení
 
 Y <- c(0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1)
 n <- length(Y)
@@ -140,7 +140,7 @@ ggplot(df23, aes(x = theta, y = h, color = y, fill = y)) +
   xlab("theta") + 
   ylab("aposteriorni (apriorni) hustota")
 
-### ??kol
+### Úkol
 
 Y1 <- c(1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0)
 Y2 <- c(0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1)
@@ -156,7 +156,7 @@ ggplot(df2, aes(x = theta, y = h, group = 1)) +
   xlab("theta") + ylab("apriorni hustota") + 
   ylim(0, 1.5)
 
-### Aposteriorn?? rozd??len??
+### Aposteriorní rozdelení
 
 n1 <- length(Y1)
 y1 <- sum(Y1)
