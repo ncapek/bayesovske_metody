@@ -182,7 +182,7 @@ ggplot(df2, aes(x = theta, y = h, group = 1)) +
   geom_line(size = 1, color = "red") + 
   xlab("theta") + ylab("aposteriorni hustota")
 
-n3 <- 250
+n3 <- 1
 y3 <- 1
 theta <- seq(0, 1, by = 0.001)
 df <- data.frame(n = n3, y = y3, theta = theta)

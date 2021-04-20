@@ -38,7 +38,7 @@ df1 <- df %>% mutate(
   y = factor(y), 
   n = factor(n)
 )
-ggplot(df1, aes(x = theta, y = h, colour = y:n)) + 
+ggplot(df1, aes(x = theta, y = h, , colour = y:n)) + 
   geom_line(size = 1) + 
   xlab("theta") + ylab("aposteriorni hustota")
 
@@ -235,25 +235,54 @@ ggplot(df1, aes(x = theta, y = h, color = model, fill = model)) +
 a = posterior$a
 b = posterior$b
 
-c(E = a/(a + b), Var = a*b/((a+b)**2 * (a+b+1)))
-qbeta(c(0.025, 0.975), a, b)
-c(pbeta(0.10, a, b), pbeta(0.20, a, b) - pbeta(0.05, a, b))
+
+c(E = a/(a + b), Var = a*b/((a+b)**2 * (a+b+1))) #aposteriorní strední hodnota
+qbeta(c(0.025, 0.975), a, b) #aposteriorní interval spolehlivosti
+c(pbeta(0.10, a, b), pbeta(0.20, a, b) - pbeta(0.05, a, b)) #P(0.05<Theta<0.2)
 
 ## Volba 2: Beta apriorní rozdelení 
 a = 2
 b = 8
 prior2 <- list(a = 2, b = 8)
-c(E = a/(a + b), Var = a*b/((a+b)**2 * (a+b+1)))
-qbeta(c(0.025, 0.975), a, b)
-c(pbeta(0.10, a, b), pbeta(0.20, a, b) - pbeta(0.05, a, b))
+c(E = a/(a + b), Var = a*b/((a+b)**2 * (a+b+1))) #aposteriorní strední hodnota
+qbeta(c(0.025, 0.975), a, b) #aposteriorní interval spolehlivosti
+c(pbeta(0.10, a, b), pbeta(0.20, a, b) - pbeta(0.05, a, b)) #P(0.05<Theta<0.2)
 
 ### Aposteriorní rozdelení
 
 posterior2 <- list(a = prior2$a + y, b = prior2$b + n - y)
+n <- 20
+y <- 0
+df.theta <- data.frame(theta = seq(0, 1, by = 0.001))
 
+df.prior2 <- df.theta %>%  mutate(
+  a = a, 
+  b = b, 
+  h = dbeta(theta, a, b),
+  model = "prior2"
+)
 
+df.posterior2 <- df.theta %>% mutate(
+  a = posterior2$a, 
+  b = posterior2$b, 
+  h = dbeta(theta, a, b),
+  model = "posterior2"
+)
+
+df2 <- rbind(df.prior2, df.posterior2)
+ggplot(df2, aes(x = theta, y = h, color = model, fill = model)) + 
+  geom_area(position = "identity", alpha = 0.2, size = 0) + 
+  geom_line(size = 1) + 
+  xlab("theta") + 
+  ylab("hustota")
 
 ## Porovnání 
+df <- rbind(df1, df2)
+ggplot(df, aes(x = theta, y = h, color = model, fill = model)) + 
+  geom_line(size = 1) + 
+  xlab("theta") + 
+  ylab("hustota")
+
 
 
 ## Prediktivní rozdelení
